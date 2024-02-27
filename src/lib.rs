@@ -1,23 +1,42 @@
-use wasm_bindgen::prelude::*;
+pub mod error;
+
+use wasm_bindgen::prelude::wasm_bindgen;
 
 use image::{ DynamicImage, ImageOutputFormat };
 use image::codecs::png::PngDecoder;
 
 use std::io::Cursor;
 
+use error::ConversionError;
+
 #[wasm_bindgen]
 // Errors in this function will be handled by JS
-pub fn png2webp(png_data: &[u8]) -> Vec<u8> {
-  let png_decoder = PngDecoder::new(png_data).unwrap();
+pub fn png2webp(png_data: &[u8]) -> Result<Vec<u8>, ConversionError> {
+  let png_decoder = PngDecoder::new(png_data)?;
 
-  let dynamic_png = DynamicImage::from_decoder(png_decoder).unwrap();
+  let dynamic_png = DynamicImage::from_decoder(png_decoder)?;
 
   // Pre-allocated memory for header
   // Reference: https://www.iana.org/assignments/media-types/image/webp
   let mut webp_data = Cursor::new(vec![0u8; 15]);
   // This will construct a WebP image using WebP encoder and write the result into webp_data
   // Note that the source PNG's color_type must be L8, La8 Rgb8 or Rgba8
-  dynamic_png.write_to(&mut webp_data, ImageOutputFormat::WebP).unwrap();
+  dynamic_png.write_to(&mut webp_data, ImageOutputFormat::WebP)?;
 
-  webp_data.into_inner()
+  Ok(webp_data.into_inner())
+}
+
+mod test {
+  /**
+   * [
+	// Offset 0x00000000 to 0x00000042
+	/*0x89*/0x80, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
+	0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x08, 0x10, 0x00, 0x00, 0x00, 0x01,
+	0x01, 0x00, 0x00, 0x00, 0x00, 0x45, 0xC1, 0xF2, 0xB7, 0x00, 0x00, 0x00,
+	0x0A, 0x49, 0x44, 0x41, 0x54, 0x78, 0x01, 0x63, 0x18, 0x05, 0x00, 0x01,
+	0x03, 0x00, 0x01, 0x45, 0x41, 0x03, 0xB5, 0x00, 0x00, 0x00, 0x00, 0x49,
+	0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
+*]
+   */
+  fn a() {}
 }
