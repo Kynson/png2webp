@@ -1,6 +1,6 @@
 # png2webp
 
-This is a simple library designed to convert PNG images to WebP format.
+This is a simple WASM library designed to convert PNG images to WebP format.
 
 ## How it works
 
