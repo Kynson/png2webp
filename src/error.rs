@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::{ JsValue, JsError };
 
 use image::ImageError;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum ConversionError {
   Decoding(String),
   Encoding(String),
