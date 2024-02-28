@@ -26,7 +26,7 @@ const packageJsonPath = `${pkgPath}/package.json`;
 
 logInfo('Building WASM binary...');
 
-execSync('wasm-pack build --target web', { stdio: 'inherit' });
+execSync('wasm-pack build --target web --scope kynsonszetau', { stdio: 'inherit' });
 
 logInfo('Building JS binding...');
 
@@ -55,6 +55,14 @@ packageJsonContent.files = [
   'png2webp.min.mjs',
   'png2webp.min.d.mts',
   'png2webp_bg.wasm'
+];
+packageJsonContent.keywords = [
+  'png2webp',
+  'webp',
+  'image',
+  'image conversion',
+  'wasm',
+  'webassembly'
 ];
 // Delete the generated collaborators & sideEffects fields
 delete packageJsonContent.collaborators;

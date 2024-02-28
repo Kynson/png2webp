@@ -1,10 +1,11 @@
 {
-  "name": "png2webp",
+  "name": "@kynsonszetau/png2webp",
   "version": "1.0.0",
   "description": "A simple WASM library designed to convert PNG images to WebP format.",
   "main": "pkg/png2webp.min.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build/build.mjs",
+    "test": "wasm-pack test --chrome"
   },
   "type": "module",
   "author": "Kynson Szetau (https://kynsonszetau.com/)",

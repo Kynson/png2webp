@@ -4,7 +4,7 @@ version = "1.0.0"
 edition = "2021"
 description = "A simple WASM library designed to convert PNG images to WebP format."
 license = "MIT"
-repository = "https://github.com/Kynson/png2webp.git"
+repository = "https://github.com/Kynson/png2webp"
 authors = ["Kynson Szetau (https://kynsonszetau.com/)"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
